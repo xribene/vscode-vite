@@ -27,8 +27,12 @@ export async function activate(ext: ExtensionContext) {
 
   ctx.packageJSON = loadPackageJSON()
 
-  if (!isViteProject())
+  if (!isViteProject()) {
+    window.showWarningMessage('Vite: This is not a Vite project.')
     return
+  }
+
+  window.showInformationMessage('Vite: Activated.')
 
   if (Config.vitepress && hasDependencies('vitepress')) {
     ctx.command = 'vitepress'

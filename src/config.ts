@@ -6,7 +6,8 @@ export function getConfig<T>(key: string, v?: T) {
 
 export const Config = {
   get root() {
-    return workspace.workspaceFolders?.[0]?.uri?.fsPath || ''
+    return getConfig('root', workspace.workspaceFolders?.[0]?.uri?.fsPath) || ''
+    // return workspace.workspaceFolders?.[0]?.uri?.fsPath || ''
   },
 
   get autoStart() {

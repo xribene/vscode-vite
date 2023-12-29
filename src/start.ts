@@ -35,13 +35,22 @@ export async function start({
         : 'npx vite'
     }
 
+    const commandParts = command.split(' ')
+    commandParts.splice(1, 0, `-C ${Config.root}`)
+    command = commandParts.join(' ')
+
     command += ` --port=${ctx.port}`
 
     executeCommand(command)
   }
   else {
-    if (Config.buildCommand)
-      executeCommand(Config.buildCommand)
+    if (Config.buildCommand) {
+      let command = Config.buildCommand
+      const commandParts = command.split(' ')
+      commandParts.splice(1, 0, `-C ${Config.root}`)
+      command = commandParts.join(' ')
+      executeCommand(command)
+    }
 
     if (ctx.command === 'vitepress') {
       let path = '.vitepress/dist'
@@ -51,7 +60,7 @@ export async function start({
       executeCommand(`npx live-server ${path} --port=${ctx.port} --no-browser`)
     }
     else {
-      executeCommand(`npx live-server dist --port=${ctx.port} --no-browser`)
+      executeCommand(`npx live-server -C ${Config.root}/dist --port=${ctx.port} --no-browser`)
     }
   }
 

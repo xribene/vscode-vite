@@ -63,6 +63,11 @@
       "type": "object",
       "title": "Vite",
       "properties": {
+        "vite.root": {
+          "type": "string",
+          "default": "",
+          "description": "Vite project root. For use in monorepos"
+        },
         "vite.autoStart": {
           "type": "boolean",
           "default": true,
